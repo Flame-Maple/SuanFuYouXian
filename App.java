@@ -6,7 +6,7 @@ public class App {
 		// TODO Auto-generated method stub
 		App Project = new App();
 		String Str = Project.readFileByLine(args[0]);
-		//String Str = "i+(i*i+i)*i";
+		//String Str = "i+i+i";
 		Str += '\r';
 		//数据初始化
 		char[] CharArray = Str.toCharArray();
@@ -36,6 +36,9 @@ public class App {
 		matrix[5][6] = 1;
 		
 		for (i = 0; true; ) {
+			if (S_i >= 1 && S[S_i - 1] == '#' && S[S_i] == 'N' && CharArray[i] == '#') {
+				return ;
+			}
 			if (check(CharArray[i]).index >= 6) {
 				System.out.println('E');
 				return ;
@@ -52,7 +55,11 @@ public class App {
 				continue;
 			}
 			
-			if (matrix[check(CharArray[i]).index][check(O[O_i]).index] == -1) {
+			if (matrix[check(CharArray[i]).index][check(S[S_i]).index] == 2) {
+				System.out.println('E');
+				return ;
+			}
+			else if (matrix[check(CharArray[i]).index][check(O[O_i]).index] == -1) {
 				if (S[S_i] == 'i') {
 					S[S_i] = 'N';
 					System.out.println('R');
@@ -75,8 +82,6 @@ public class App {
 					S[S_i] = 'N';
 					System.out.println('R');
 				}
-				if (S[S_i - 1] == '#' && S[S_i] == 'N' && CharArray[i] == '#')
-					return ;
 
 				if (S[S_i - 2] == 'N' && (S[S_i - 1] == '+' || S[S_i - 1] == '*') && S[S_i] == 'N') {
 					S_i -= 2;
@@ -95,12 +100,7 @@ public class App {
 					return ;
 				}
 			}
-			else if (matrix[check(CharArray[i]).index][check(S[S_i]).index] == 2) {
-				System.out.println('E');
-				return ;
-			}
 		}
-		
 	}
 
 	public String readFileByLine(String fileName) {
