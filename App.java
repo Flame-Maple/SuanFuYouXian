@@ -1,3 +1,4 @@
+
 import java.io.*;
 
 public class App {
@@ -5,8 +6,8 @@ public class App {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		App Project = new App();
-		String Str = Project.readFileByLine(args[0]);
-		//String Str = "ii";
+		//String Str = Project.readFileByLine(args[0]);
+		String Str = "i+i+i";
 		Str += '\r';
 		//数据初始化
 		char[] CharArray = Str.toCharArray();
@@ -16,10 +17,12 @@ public class App {
 		CharArray[i] = '#';
 		
 		//符号优先文法
-		int S_i = -1;
+		int S_i = -1, O_i = -1;
 		char[] S = new char[1000];
+		char[] O = new char[1000];
 		int[][] matrix = new int[7][7];
 		S[++S_i] = '#';
+		O[++O_i] = '#';
 		for (int j = 0; j < 7; j++) {
 			for (int m = 0; m < 7; m++) {
 				matrix[j][m] = 2;
@@ -39,23 +42,41 @@ public class App {
 				return ;
 			}
 			
-			if (matrix[check(CharArray[i]).index][check(S[S_i]).index] == -1) {
-				S[++S_i] = CharArray[i++];
+			if (check(CharArray[i]).index == 2) {
+				if (matrix[check(CharArray[i]).index][check(S[S_i]).index] == 2) {
+					System.out.println('E');
+					return ;
+				}
+				S[++S_i] = 'N';
+				i++;
+				System.out.println("I" + 'i');
+				System.out.println('R');
+				continue;
+			}
+			
+			if (matrix[check(CharArray[i]).index][check(O[O_i]).index] == -1) {
+				S[++S_i] = CharArray[i];
+				O[++O_i] = CharArray[i++];
 				System.out.println("I" + S[S_i]);
 			}
-			else if (matrix[check(CharArray[i]).index][check(S[S_i]).index] == 0) {
-				S[++S_i] = CharArray[i++];
+			else if (matrix[check(CharArray[i]).index][check(O[O_i]).index] == 0) {
+				S[++S_i] = CharArray[i];
+				O[++O_i] = CharArray[i++];
 				System.out.println("I" + S[S_i]);
 			}
-			else if (matrix[check(CharArray[i]).index][check(S[S_i]).index] == 1) {
+			else if (matrix[check(CharArray[i]).index][check(O[O_i]).index] == 1) {
 				if (S[S_i - 1] == '#' && S[S_i] == 'N' && CharArray[i] == '#')
 					return ;
-				if (S[S_i] == 'i') {
+
+				if (S[S_i - 2] == 'N' && (S[S_i - 1] == '+' || S[S_i - 1] == '-') && S[S_i] == 'N') {
+					S_i -= 2;
+					O_i -= 1;
 					S[S_i] = 'N';
 					System.out.println('R');
 				}
-				else if ((S[S_i - 2] == 'N' && (S[S_i - 1] == '+' || S[S_i - 1] == '-') && S[S_i] == 'N') || (S[S_i - 2] == '(' && S[S_i - 1] == 'N' && S[S_i] == ')')) {
+				else if(S[S_i - 2] == '(' && S[S_i - 1] == 'N' && S[S_i] == ')') {
 					S_i -= 2;
+					O_i -= 2;
 					S[S_i] = 'N';
 					System.out.println('R');
 				}
