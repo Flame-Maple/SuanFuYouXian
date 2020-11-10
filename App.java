@@ -6,8 +6,8 @@ public class App {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		App Project = new App();
-		//String Str = Project.readFileByLine(args[0]);
-		String Str = "i+i+i";
+		String Str = Project.readFileByLine(args[0]);
+		//String Str = "i+i*i";
 		Str += '\r';
 		//数据初始化
 		char[] CharArray = Str.toCharArray();
@@ -68,7 +68,7 @@ public class App {
 				if (S[S_i - 1] == '#' && S[S_i] == 'N' && CharArray[i] == '#')
 					return ;
 
-				if (S[S_i - 2] == 'N' && (S[S_i - 1] == '+' || S[S_i - 1] == '-') && S[S_i] == 'N') {
+				if (S[S_i - 2] == 'N' && (S[S_i - 1] == '+' || S[S_i - 1] == '*') && S[S_i] == 'N') {
 					S_i -= 2;
 					O_i -= 1;
 					S[S_i] = 'N';
