@@ -1,4 +1,3 @@
-
 import java.io.*;
 
 public class App {
@@ -7,7 +6,7 @@ public class App {
 		// TODO Auto-generated method stub
 		App Project = new App();
 		String Str = Project.readFileByLine(args[0]);
-		//String Str = "i+i*i";
+		//String Str = "i+(i*i+i)*i";
 		Str += '\r';
 		//数据初始化
 		char[] CharArray = Str.toCharArray();
@@ -47,24 +46,35 @@ public class App {
 					System.out.println('E');
 					return ;
 				}
-				S[++S_i] = 'N';
+				S[++S_i] = 'i';
 				i++;
 				System.out.println("I" + 'i');
-				System.out.println('R');
 				continue;
 			}
 			
 			if (matrix[check(CharArray[i]).index][check(O[O_i]).index] == -1) {
+				if (S[S_i] == 'i') {
+					S[S_i] = 'N';
+					System.out.println('R');
+				}
 				S[++S_i] = CharArray[i];
 				O[++O_i] = CharArray[i++];
 				System.out.println("I" + S[S_i]);
 			}
 			else if (matrix[check(CharArray[i]).index][check(O[O_i]).index] == 0) {
+				if (S[S_i] == 'i') {
+					S[S_i] = 'N';
+					System.out.println('R');
+				}
 				S[++S_i] = CharArray[i];
 				O[++O_i] = CharArray[i++];
 				System.out.println("I" + S[S_i]);
 			}
 			else if (matrix[check(CharArray[i]).index][check(O[O_i]).index] == 1) {
+				if (S[S_i] == 'i') {
+					S[S_i] = 'N';
+					System.out.println('R');
+				}
 				if (S[S_i - 1] == '#' && S[S_i] == 'N' && CharArray[i] == '#')
 					return ;
 
