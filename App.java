@@ -6,7 +6,7 @@ public class App {
 		// TODO Auto-generated method stub
 		App Project = new App();
 		String Str = Project.readFileByLine(args[0]);
-		//String Str = "i+i+i";
+		//String Str = "i+i+i+(i+i#";
 		Str += '\r';
 		//数据初始化
 		char[] CharArray = Str.toCharArray();
@@ -37,6 +37,10 @@ public class App {
 		
 		for (i = 0; true; ) {
 			if (S_i >= 1 && S[S_i - 1] == '#' && S[S_i] == 'N' && CharArray[i] == '#') {
+				return ;
+			}
+			if (CharArray[i] == '#' && O[O_i] == '(') {
+				System.out.println('E');
 				return ;
 			}
 			if (check(CharArray[i]).index >= 6) {
